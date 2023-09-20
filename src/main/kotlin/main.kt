@@ -32,7 +32,7 @@ fun main ()
                     val marca = readLine()?:""
                     do
                     {
-                        println("Ingrese la patente del vehiculo a estacionar. FORMATO: (NªNªNª AAA)");
+                        println("Ingrese la patente del vehiculo a estacionar. FORMATO: (AAA N°N°N°)");
                         val inputPatente = readLine()?:""
                         if(!estacionamiento.validarPatente(inputPatente))
                         {
@@ -42,7 +42,7 @@ fun main ()
                         {
                             patente = inputPatente;
                         }
-                    }while (!estacionamiento.validarPatente(patente))
+                    }while (!estacionamiento.validarPatente(inputPatente))
 
                     val vehiculo = Vehiculo(marca,modelo,patente,color);
                     estacionamiento.estacionarVehiculoEnEstacionamiento(vehiculo);
