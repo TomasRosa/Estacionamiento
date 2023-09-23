@@ -72,8 +72,27 @@ class Estacionamiento : CostoEstacionamiento
     }
     fun calcularHorasEstacionado(vehiculo: Vehiculo): Int
     {
-        return vehiculo.horaSalida - vehiculo.horaEntrada;
+        /**
+         Funcion para calcular las horas que estuvo un vehiculo en el estacionamiento a partir de sus dos respectivos atributos.
+         */
+        val horasEnUnDia = 24
+
+        // Si horaSalida es menor que horaEntrada, significa que cruzó la medianoche.
+        if (vehiculo.horaSalida < vehiculo.horaEntrada)
+        {
+            // En este caso, sumamos las horas del primer día hasta medianoche y luego las del segundo día.
+            val horasPrimerDia = horasEnUnDia - vehiculo.horaEntrada
+            val horasSegundoDia = vehiculo.horaSalida
+
+            return horasPrimerDia + horasSegundoDia
+        }
+        else
+        {
+            // Si no cruzó la medianoche, simplemente restamos las horas de entrada de las de salida.
+            return vehiculo.horaSalida - vehiculo.horaEntrada
+        }
     }
+
     override fun calcularCosto(vehiculo: Vehiculo): Int
     {
         /**
@@ -88,6 +107,9 @@ class Estacionamiento : CostoEstacionamiento
     }
     fun cerrarCaja () : Int
     {
+        /**
+         Func cerrar caja, calcula el costo total mediante iteracion sobre todos los vehiculos de el estacionamiento.
+         */
         var total = 0;
 
         this.totalVehiculos.forEach{ vehiculo ->  

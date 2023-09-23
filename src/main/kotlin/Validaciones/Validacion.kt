@@ -1,3 +1,8 @@
+package Validaciones
+
+/**
+ Clase validacion para no tener todo en estacionamiento, ordenar mejor el codigo y que no sea tan desprolijo.
+ */
 class Validacion
 {
     fun validarPatente(patente: String): Boolean

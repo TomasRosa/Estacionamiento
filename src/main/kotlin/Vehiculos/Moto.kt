@@ -4,6 +4,9 @@ import Enum.TipoHorario
 import Enum.TipoVehiculo
 import Sistema.Vehiculo
 
+/**
+    Clase hija de Vehiculo, moto.
+ */
 class Moto(
     marca: String,
     modelo: String,

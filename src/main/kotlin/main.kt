@@ -2,6 +2,7 @@ import Enum.TipoHorario
 import Enum.TipoVehiculo
 import Sistema.Estacionamiento
 import Sistema.Vehiculo
+import Validaciones.Validacion
 import Vehiculos.Auto
 import Vehiculos.Camioneta
 import Vehiculos.Moto
@@ -44,8 +45,6 @@ fun main ()
                     if(estacionamiento.contarVehiculosEstacionados() < capacidadEstacionamiento)
                     {
                         var patente= "";
-                        var horaEntrada = 0;
-                        var horaSalida = 0;
 
                         println("Ingrese su tipo de vehiculo AUTO-MOTO-CAMIONETA")
                         val tipoVehiculoInput = readLine() ?: ""
@@ -94,27 +93,13 @@ fun main ()
                                 patente = inputPatente;
                             }
                         }while (!validacion.validarPatente(inputPatente))
-                        do
-                        {
-                            println("Recuerde que la hora de salida debe ser mayor a la hora de entrada. Formato: 1-24")
-                            println("Ingrese la hora de entrada del vehiculo a estacionar. ");
-                            val inputHoraEntrada = readLine()?.toInt() ?: 0
-                            println("Ingrese la hora de salida del vehiculo a estacionar. ");
-                            val inputHoraSalida = readLine()?.toInt() ?: 0
 
-                            if(!validacion.validarHoraSalidaMayorHoraEntrada(inputHoraEntrada,inputHoraSalida))
-                            {
-                                println("Ingrese una hora de entrada y salida valida. ");
-                            }
-                            else
-                            {
-                                horaEntrada = inputHoraEntrada;
-                                horaSalida = inputHoraSalida;
-                            }
+                        println("Ingrese la hora de entrada del vehiculo a estacionar. ");
+                        val inputHoraEntrada = readLine()?.toInt() ?: 0
+                        println("Ingrese la hora de salida del vehiculo a estacionar. ");
+                        val inputHoraSalida = readLine()?.toInt() ?: 0
 
-                        }while (!validacion.validarHoraSalidaMayorHoraEntrada(horaEntrada,horaSalida))
-
-                        val vehiculo = Vehiculo(marca,modelo,patente,color,horaEntrada,horaSalida,tipoVehiculo,tipoHorario);
+                        val vehiculo = Vehiculo(marca,modelo,patente,color,inputHoraEntrada,inputHoraSalida,tipoVehiculo,tipoHorario);
                         estacionamiento.estacionarVehiculoEnEstacionamiento(vehiculo);
                     }
                     else
@@ -206,6 +191,9 @@ fun main ()
                 }
                 7 ->
                 {
+                    /**
+                     Func de cerrar caja by lazy para que se haga una vez sola. Mas eficiencia.
+                     */
                     val costoTotalCaja by lazy {estacionamiento.cerrarCaja()};
                     println("El cierra de caja es de: $" + costoTotalCaja);
                     exitProcess(1);
